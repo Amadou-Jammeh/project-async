@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Async and Await Example</title>
+</head>
+<body>
+
+  <h1>Async and Await Example</h1>
+  <button onclick="startProcess()">Start Process</button>
+  <p id="output"></p>
+
+  <script>
+    // Simulate an asynchronous function (e.g., an API request)
+    function fetchData() {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // Simulating successful data fetching after 2 seconds
+          const data = "Data fetched successfully!";
+          resolve(data);
+        }, 2000); // 2 seconds delay
+      });
+    }
+
+    // Function that is dependent on fetchData
+    async function processData() {
+      try {
+        // Wait for fetchData to complete and get the result
+        const result = await fetchData();
+        
+        // Once fetchData is done, this will run
+        console.log(result);  // Log the result to the console
+        document.getElementById('output').textContent = result;  // Display the result on the page
+        
+      } catch (error) {
+        // Handle any errors that might occur in the async operation
+        console.error('Error:', error);
+        document.getElementById('output').textContent = 'An error occurred!';
+      }
+    }
+
+    // Start the process when the button is clicked
+    function startProcess() {
+      document.getElementById('output').textContent = 'Processing...';
+      processData(); // Call the async function
+    }
+  </script>
+
+</body>
+</html>
